@@ -794,8 +794,9 @@
 	  };
 	}
 
-	var cityid = '6692263,2643743,5128581,5368361,3451190,1816670,3369157,2147714,524901,292223';
 	var APIkey = 'f3152b4316fa515ea02d748191665d8e';
+
+	var cityid = '6692263,2643743,5128581,5368361,3451190,1816670,3369157,2147714,524901,292223';
 	var url = "http://api.openweathermap.org/data/2.5/group?id=".concat(cityid, "&units=metric&APPID=").concat(APIkey);
 	function getWeather() {
 	  return _getWeather.apply(this, arguments);
@@ -846,10 +847,9 @@
 
 	          case 19:
 	            data = _context.sent;
-	            console.info(data);
 	            return _context.abrupt("return", data);
 
-	          case 22:
+	          case 21:
 	          case "end":
 	            return _context.stop();
 	        }
@@ -15463,7 +15463,7 @@
 	          case 19:
 	            data = _context.sent;
 	            cities = data;
-	            return _context.abrupt("return", console.info(cities));
+	            return _context.abrupt("return", cities);
 
 	          case 22:
 	          case "end":
@@ -15473,16 +15473,6 @@
 	    }, _callee, null, [[0, 6]]);
 	  }));
 	  return _getCities.apply(this, arguments);
-	}
-
-	function search(key) {
-	  var results = [];
-	  cities.forEach(function (i) {
-	    if (i.name.includes(key)) {
-	      results.push("".concat(i.name, " - ").concat(i.country));
-	    }
-	  });
-	  console.info(results);
 	}
 
 	var weather;
@@ -15510,9 +15500,6 @@
 	          return getCities();
 
 	        case 7:
-	          search('Gru');
-
-	        case 8:
 	        case "end":
 	          return _context.stop();
 	      }

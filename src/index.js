@@ -1,6 +1,6 @@
 import { getWeather } from './weather.js';
 import { makeMap, addMarker } from './map.js';
-import { getCities, search } from './cities.js';
+import { getCities } from './cities.js';
 
 let weather;
 const map = document.querySelector('.map'); // eslint-disable-line
@@ -16,5 +16,4 @@ document.addEventListener('DOMContentLoaded', async () => { // eslint-disable-li
   makeMap(map);
   init();
   await getCities();
-  search('Gru');
 });

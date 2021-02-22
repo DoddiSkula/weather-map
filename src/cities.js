@@ -19,7 +19,7 @@ export async function getCities() {
   const data = await result.json();
   cities = data;
 
-  return console.info(cities);
+  return cities;
 }
 
 export function search(key) {
@@ -31,5 +31,5 @@ export function search(key) {
     }
   });
 
-  console.info(results);
+  return results;
 }
