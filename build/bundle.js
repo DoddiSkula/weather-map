@@ -794,10 +794,9 @@
 	  };
 	}
 
-	var APIkey = 'f3152b4316fa515ea02d748191665d8e';
-
+	var key = 'f3152b4316fa515ea02d748191665d8e';
 	var cityid = '6692263,2643743,5128581,5368361,3451190,1816670,3369157,2147714,524901,292223';
-	var url = "http://api.openweathermap.org/data/2.5/group?id=".concat(cityid, "&units=metric&APPID=").concat(APIkey);
+	var url = "http://api.openweathermap.org/data/2.5/group?id=".concat(cityid, "&units=metric&APPID=").concat(key);
 	function getWeather() {
 	  return _getWeather.apply(this, arguments);
 	}
