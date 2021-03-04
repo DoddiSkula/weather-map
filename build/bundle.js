@@ -1287,7 +1287,7 @@
           switch (_context.prev = _context.next) {
             case 0:
               key = 'f3152b4316fa515ea02d748191665d8e';
-              url = "http://api.openweathermap.org/data/2.5/group?id=".concat(cityid, "&units=metric&APPID=").concat(key);
+              url = "https://api.openweathermap.org/data/2.5/group?id=".concat(cityid, "&units=metric&APPID=").concat(key);
               _context.prev = 2;
               _context.next = 5;
               return fetch(url);
