@@ -24,7 +24,7 @@ export function makeMap(mapEl) {
     {
       maxZoom: 20,
       attribution:
-        '&copy; <a href="https://stadiamaps.com/">Stadia Maps</a>, &copy; <a href="https://openmaptiles.org/">OpenMapTiles</a> &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors',
+        '&copy; <a href="http://stadiamaps.com/">Stadia Maps</a>, &copy; <a href="http://openmaptiles.org/">OpenMapTiles</a> &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors',
     },
   ).addTo(map);
 }
