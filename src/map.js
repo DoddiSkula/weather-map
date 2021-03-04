@@ -20,7 +20,7 @@ export function makeMap(mapEl) {
   map = L.map(mapEl, options);
 
   L.tileLayer(
-    'https://tiles.stadiamaps.com/tiles/alidade_smooth_dark/{z}/{x}/{y}{r}.png',
+    'http://tiles.stadiamaps.com/tiles/alidade_smooth_dark/{z}/{x}/{y}{r}.png',
     {
       maxZoom: 20,
       attribution:
