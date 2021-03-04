@@ -15470,6 +15470,7 @@
 
   var map;
   function makeMap(mapEl) {
+    delete leafletSrc.Icon.Default.prototype._getIconUrl;
     var corner1 = leafletSrc.latLng(-90, -200);
     var corner2 = leafletSrc.latLng(90, 200);
     var bounds = leafletSrc.latLngBounds(corner1, corner2);
