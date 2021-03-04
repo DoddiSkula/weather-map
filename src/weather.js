@@ -1,6 +1,6 @@
 export async function getWeather(cityid) {
   const key = 'f3152b4316fa515ea02d748191665d8e';
-  const url = `http://api.openweathermap.org/data/2.5/group?id=${cityid}&units=metric&APPID=${key}`;
+  const url = `https://api.openweathermap.org/data/2.5/group?id=${cityid}&units=metric&APPID=${key}`;
   let result;
 
   try {
