@@ -17,4 +17,4 @@ The weather data used in this project is from [OpenWeather](https://openweatherm
 
 ---
 
-Note: This is project does *not* showcase a very efficient way of fetching and displaying data. But works well for the small scale of this project. 
+Note: This project does *not* showcase a very efficient way of fetching and displaying data. But works well for the small scale of this project. 
