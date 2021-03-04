@@ -4,7 +4,6 @@ import { element } from './utils.js';
 let map;
 
 export function makeMap(mapEl) {
-  delete L.Icon.Default.prototype._getIconUrl;
   const corner1 = L.latLng(-90, -200);
   const corner2 = L.latLng(90, 200);
   const bounds = L.latLngBounds(corner1, corner2);
