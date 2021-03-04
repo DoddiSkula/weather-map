@@ -1,6 +1,8 @@
-# Weather map
+# World Weather Map
 
-An interactive map of the world showing live weather in cities around the world.
+A simple interactive map of the world showing live weather in cities around the world.
+
+Live version available on heroku: https://worldweathermap.herokuapp.com/.
 
 ## The weather data
 
@@ -12,3 +14,7 @@ The weather data used in this project is from [OpenWeather](https://openweatherm
 - [ ] Display wind speed and direction
 - [ ] Additional weather information
 - [ ] Display search list
+
+---
+
+Note: This is project does *not* showcase a very efficient way of fetching and displaying data. But works well for the small scale of this project. 
