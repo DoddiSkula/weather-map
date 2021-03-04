@@ -1,3 +1,6 @@
+import { getWeather } from './weather.js';
+import { addMarker, removeMarkers } from './map.js';
+
 let cities;
 
 export async function getCities() {
@@ -22,14 +25,26 @@ export async function getCities() {
   return cities;
 }
 
-export function search(key) {
+export async function search(key) {
   const results = [];
 
-  cities.forEach((i) => {
-    if (i.name.includes(key)) {
-      results.push(`${i.name} - ${i.country}`);
-    }
-  });
+  if (key !== null) {
+    cities.forEach((i) => {
+      if (i.name.match(new RegExp(`^${key}`, 'i'))) {
+        if (results.length <= 10) {
+          results.push(i.id);
+        }
+      }
+    });
+  }
+
+  if (results.length !== 0) {
+    removeMarkers();
+    const searchResult = await getWeather(results.join(','));
+    searchResult.list.forEach((element) => {
+      addMarker(element);
+    });
+  }
 
   return results;
 }

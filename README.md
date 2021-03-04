@@ -8,6 +8,7 @@ The weather data used in this project is from [OpenWeather](https://openweatherm
 
 ## To-Do list
 
+- [x] Search for a specific city
 - [ ] Display wind speed and direction
-- [ ] Search for a specific city
 - [ ] Additional weather information
+- [ ] Display search list

@@ -55,6 +55,8 @@ function getContent(elem) {
   );
 }
 
+const markers = [];
+
 export function addMarker(location) {
   const { coord } = location;
 
@@ -73,11 +75,19 @@ export function addMarker(location) {
   };
   const popup = L.popup(popupOptions).setContent(content);
 
-  const marker = L.marker([coord.lat, coord.lon], { icon })
+  const mark = L.marker([coord.lat, coord.lon], { icon })
     .addTo(map)
     .bindPopup(popup);
 
-  marker.addEventListener('mouseover', (e) => {
+  mark.addEventListener('mouseover', (e) => {
     e.target.openPopup();
+  });
+
+  markers.push(mark);
+}
+
+export function removeMarkers() {
+  markers.forEach((i) => {
+    map.removeLayer(i);
   });
 }

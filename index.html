@@ -9,10 +9,17 @@
     <link rel="stylesheet" href="node_modules/leaflet/dist/leaflet.css">
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Ubuntu:wght@300;400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
   </head>
   <body>
     <div class="map-container">
       <div class="map"></div>
+      <div class="search">
+        <form action="/">
+          <input type="text" name="search" placeholder="Search city">
+          <button><i class="fa fa-search"></i></button>
+        </form>
+      </div>
     </div>
     <script src="./build/bundle.js"></script>
   </body>
