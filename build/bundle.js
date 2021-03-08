@@ -15811,6 +15811,107 @@
     ];
   });
 
+  // 7.1.13 ToObject(argument)
+
+  var _toObject = function (it) {
+    return Object(_defined(it));
+  };
+
+  // 7.2.2 IsArray(argument)
+
+  var _isArray = Array.isArray || function isArray(arg) {
+    return _cof(arg) == 'Array';
+  };
+
+  var SPECIES$2 = _wks('species');
+
+  var _arraySpeciesConstructor = function (original) {
+    var C;
+    if (_isArray(original)) {
+      C = original.constructor;
+      // cross-realm fallback
+      if (typeof C == 'function' && (C === Array || _isArray(C.prototype))) C = undefined;
+      if (_isObject(C)) {
+        C = C[SPECIES$2];
+        if (C === null) C = undefined;
+      }
+    } return C === undefined ? Array : C;
+  };
+
+  // 9.4.2.3 ArraySpeciesCreate(originalArray, length)
+
+
+  var _arraySpeciesCreate = function (original, length) {
+    return new (_arraySpeciesConstructor(original))(length);
+  };
+
+  // 0 -> Array#forEach
+  // 1 -> Array#map
+  // 2 -> Array#filter
+  // 3 -> Array#some
+  // 4 -> Array#every
+  // 5 -> Array#find
+  // 6 -> Array#findIndex
+
+
+
+
+
+  var _arrayMethods = function (TYPE, $create) {
+    var IS_MAP = TYPE == 1;
+    var IS_FILTER = TYPE == 2;
+    var IS_SOME = TYPE == 3;
+    var IS_EVERY = TYPE == 4;
+    var IS_FIND_INDEX = TYPE == 6;
+    var NO_HOLES = TYPE == 5 || IS_FIND_INDEX;
+    var create = $create || _arraySpeciesCreate;
+    return function ($this, callbackfn, that) {
+      var O = _toObject($this);
+      var self = _iobject(O);
+      var f = _ctx(callbackfn, that, 3);
+      var length = _toLength(self.length);
+      var index = 0;
+      var result = IS_MAP ? create($this, length) : IS_FILTER ? create($this, 0) : undefined;
+      var val, res;
+      for (;length > index; index++) if (NO_HOLES || index in self) {
+        val = self[index];
+        res = f(val, index, O);
+        if (TYPE) {
+          if (IS_MAP) result[index] = res;   // map
+          else if (res) switch (TYPE) {
+            case 3: return true;             // some
+            case 5: return val;              // find
+            case 6: return index;            // findIndex
+            case 2: result.push(val);        // filter
+          } else if (IS_EVERY) return false; // every
+        }
+      }
+      return IS_FIND_INDEX ? -1 : IS_SOME || IS_EVERY ? IS_EVERY : result;
+    };
+  };
+
+  // 22.1.3.31 Array.prototype[@@unscopables]
+  var UNSCOPABLES = _wks('unscopables');
+  var ArrayProto = Array.prototype;
+  if (ArrayProto[UNSCOPABLES] == undefined) _hide(ArrayProto, UNSCOPABLES, {});
+  var _addToUnscopables = function (key) {
+    ArrayProto[UNSCOPABLES][key] = true;
+  };
+
+  // 22.1.3.8 Array.prototype.find(predicate, thisArg = undefined)
+
+  var $find = _arrayMethods(5);
+  var KEY = 'find';
+  var forced = true;
+  // Shouldn't skip holes
+  if (KEY in []) Array(1)[KEY](function () { forced = false; });
+  _export(_export.P + _export.F * forced, 'Array', {
+    find: function find(callbackfn /* , that = undefined */) {
+      return $find(this, callbackfn, arguments.length > 1 ? arguments[1] : undefined);
+    }
+  });
+  _addToUnscopables(KEY);
+
   var cities;
   function getCities() {
     return _getCities.apply(this, arguments);
@@ -15880,47 +15981,69 @@
 
   function _search() {
     _search = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee2(key) {
-      var results, searchResult;
+      var results, found, searchResult;
       return regeneratorRuntime.wrap(function _callee2$(_context2) {
         while (1) {
           switch (_context2.prev = _context2.next) {
             case 0:
               results = [];
 
+              // const BreakException = {};
               if (key !== null) {
-                cities.forEach(function (i) {
-                  if (i.name.match(new RegExp("^".concat(key), 'i'))) {
-                    if (results.length <= 10) {
-                      results.push(i.id);
-                    }
-                  }
+                found = cities.find(function (city) {
+                  return city.name.match(new RegExp("^".concat(key, "$"), 'i'));
                 });
+                results.push(found.id);
+                /* try {
+                    cities.forEach((i) => {
+                      if (i.name.match(new RegExp(`^${key}$`, 'i'))) {
+                        results.push(i.id);
+                        if (results.length >= 1) {
+                          throw BreakException;
+                        }
+                      }
+                    });
+                  } catch (e) {
+                    if (e !== BreakException) throw e;
+                  } */
               }
 
-              if (!(results.length !== 0)) {
-                _context2.next = 8;
+              if (!found) {
+                _context2.next = 14;
                 break;
               }
 
               removeMarkers();
-              _context2.next = 6;
+              _context2.prev = 4;
+              _context2.next = 7;
               return getWeather(results.join(','));
 
-            case 6:
+            case 7:
               searchResult = _context2.sent;
-              searchResult.list.forEach(function (element) {
-                addMarker(element);
-              });
+              _context2.next = 13;
+              break;
 
-            case 8:
+            case 10:
+              _context2.prev = 10;
+              _context2.t0 = _context2["catch"](4);
+              console.error('Error fetching data: ', _context2.t0);
+
+            case 13:
+              if (searchResult !== null) {
+                searchResult.list.forEach(function (element) {
+                  addMarker(element);
+                });
+              }
+
+            case 14:
               return _context2.abrupt("return", results);
 
-            case 9:
+            case 15:
             case "end":
               return _context2.stop();
           }
         }
-      }, _callee2);
+      }, _callee2, null, [[4, 10]]);
     }));
     return _search.apply(this, arguments);
   }

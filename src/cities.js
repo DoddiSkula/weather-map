@@ -27,23 +27,40 @@ export async function getCities() {
 
 export async function search(key) {
   const results = [];
+  let found;
+  // const BreakException = {};
 
   if (key !== null) {
-    cities.forEach((i) => {
-      if (i.name.match(new RegExp(`^${key}`, 'i'))) {
-        if (results.length <= 10) {
+    found = cities.find((city) => city.name.match(new RegExp(`^${key}$`, 'i')));
+    results.push(found.id);
+  /* try {
+      cities.forEach((i) => {
+        if (i.name.match(new RegExp(`^${key}$`, 'i'))) {
           results.push(i.id);
+          if (results.length >= 1) {
+            throw BreakException;
+          }
         }
-      }
-    });
+      });
+    } catch (e) {
+      if (e !== BreakException) throw e;
+    } */
   }
 
-  if (results.length !== 0) {
+  if (found) {
     removeMarkers();
-    const searchResult = await getWeather(results.join(','));
-    searchResult.list.forEach((element) => {
-      addMarker(element);
-    });
+    let searchResult;
+    try {
+      searchResult = await getWeather(results.join(','));
+    } catch (e) {
+      console.error('Error fetching data: ', e);
+    }
+
+    if (searchResult !== null) {
+      searchResult.list.forEach((element) => {
+        addMarker(element);
+      });
+    }
   }
 
   return results;
