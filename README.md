@@ -2,8 +2,6 @@
 
 A simple interactive map of the world showing live weather in cities around the world.
 
-Live version available on heroku: https://worldweathermap.herokuapp.com/.
-
 ## The weather data
 
 The weather data used in this project is from [OpenWeather](https://openweathermap.org/current). Their data is collected and processed from different sources such as global and local weather models, statellites, radars and vast network of weather stations.
